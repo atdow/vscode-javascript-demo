@@ -1,5 +1,5 @@
 {
-  "name": "vscode-javascript-demo",
+	"name": "vscode-javascript-demo",
 	"displayName": "vscode-javascript-demo",
 	"description": "vscode-javascript-demo",
 	"version": "0.0.1",
@@ -10,15 +10,67 @@
 		"Other"
 	],
 	"activationEvents": [
-        "onCommand:vscode-javascript-demo.helloWorld"
+		"*"
 	],
 	"main": "./extension.js",
 	"contributes": {
-		"commands": [{
-            "command": "vscode-javascript-demo.helloWorld",
-            "title": "Hello World"
-
-		}]
+		"commands": [
+			{
+				"command": "vscode-javascript-demo.helloMe",
+				"title": "HelloME"
+			},
+			{
+				"command": "vscode-javascript-demo.getCurrentFilePath",
+				"title": "getCurrentFilePath"
+			},
+			{
+				"command": "vscode-javascript-demo.testEditorCommand",
+				"title": "testEditorCommand"
+			},
+			{
+				"command": "vscode-javascript-demo.testMenuShow",
+				"title": "这个菜单仅在md文件中出现",
+				"icon": {
+					"light": "./images/dog-light.svg",
+					"dark": "./images/dog-dart.svg"
+				}
+			}
+		],
+		"keybindings": [
+			{
+				"command": "vscode-javascript-demo.helloMe",
+				"key": "ctrl+f10",
+				"mac": "cmd+f10",
+				"when": "editorTextFocus"
+			}
+		],
+		"menus": {
+			"editor/context": [
+				{
+					"when": "editorFocus",
+					"command": "vscode-javascript-demo.helloMe",
+					"group": "navigation"
+				},
+				{
+					"when": "editorFocus",
+					"command": "vscode-javascript-demo.getCurrentFilePath",
+					"group": "navigation"
+				},
+				{
+					"when": "resourceLangId == markdown",
+					"command": "vscode-javascript-demo.testMenuShow",
+					"alt": "markdown.showPreviewToSide",
+					"group": "navigation"
+				}
+			],
+			"explorer/context": [
+				{
+					"command": "vscode-javascript-demo.getCurrentFilePath",
+					"group": "navigation"
+				}
+			],
+			"editor/title": []
+		}
 	},
 	"scripts": {
 		"lint": "eslint .",
@@ -26,15 +78,14 @@
 		"test": "node ./test/runTest.js"
 	},
 	"devDependencies": {
-        "@types/vscode": "^1.50.0",
-        "@types/glob": "^7.1.3",
-        "@types/mocha": "^8.0.0",
-        "@types/node": "^12.11.7",
-        "eslint": "^7.9.0",
-        "glob": "^7.1.6",
-        "mocha": "^8.1.3",
-        "typescript": "^4.0.2",
-        "vscode-test": "^1.4.0"
-    }
-
+		"@types/vscode": "^1.50.0",
+		"@types/glob": "^7.1.3",
+		"@types/mocha": "^8.0.0",
+		"@types/node": "^12.11.7",
+		"eslint": "^7.9.0",
+		"glob": "^7.1.6",
+		"mocha": "^8.1.3",
+		"typescript": "^4.0.2",
+		"vscode-test": "^1.4.0"
+	}
 }
