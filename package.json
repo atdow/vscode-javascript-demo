@@ -1,91 +1,190 @@
 {
-	"name": "vscode-javascript-demo",
-	"displayName": "vscode-javascript-demo",
-	"description": "vscode-javascript-demo",
-	"version": "0.0.1",
-	"engines": {
-		"vscode": "^1.50.0"
-	},
-	"categories": [
-		"Other"
-	],
-	"activationEvents": [
-		"*"
-	],
-	"main": "./extension.js",
-	"contributes": {
-		"commands": [
-			{
-				"command": "vscode-javascript-demo.helloMe",
-				"title": "HelloME"
-			},
-			{
-				"command": "vscode-javascript-demo.getCurrentFilePath",
-				"title": "getCurrentFilePath"
-			},
-			{
-				"command": "vscode-javascript-demo.testEditorCommand",
-				"title": "testEditorCommand"
-			},
-			{
-				"command": "vscode-javascript-demo.testMenuShow",
-				"title": "这个菜单仅在md文件中出现",
-				"icon": {
-					"light": "./images/dog-light.svg",
-					"dark": "./images/dog-dart.svg"
-				}
-			}
-		],
-		"keybindings": [
-			{
-				"command": "vscode-javascript-demo.helloMe",
-				"key": "ctrl+f10",
-				"mac": "cmd+f10",
-				"when": "editorTextFocus"
-			}
-		],
-		"menus": {
-			"editor/context": [
-				{
-					"when": "editorFocus",
-					"command": "vscode-javascript-demo.helloMe",
-					"group": "navigation"
-				},
-				{
-					"when": "editorFocus",
-					"command": "vscode-javascript-demo.getCurrentFilePath",
-					"group": "navigation"
-				},
-				{
-					"when": "resourceLangId == markdown",
-					"command": "vscode-javascript-demo.testMenuShow",
-					"alt": "markdown.showPreviewToSide",
-					"group": "navigation"
-				}
-			],
-			"explorer/context": [
-				{
-					"command": "vscode-javascript-demo.getCurrentFilePath",
-					"group": "navigation"
-				}
-			],
-			"editor/title": []
-		}
-	},
-	"scripts": {
-		"lint": "eslint .",
-		"pretest": "npm run lint",
-		"test": "node ./test/runTest.js"
-	},
-	"devDependencies": {
-		"@types/vscode": "^1.50.0",
-		"@types/glob": "^7.1.3",
-		"@types/mocha": "^8.0.0",
-		"@types/node": "^12.11.7",
-		"eslint": "^7.9.0",
-		"glob": "^7.1.6",
-		"mocha": "^8.1.3",
-		"typescript": "^4.0.2",
-		"vscode-test": "^1.4.0"
-	}
+    "name": "vscode-plugin-demo",
+    "displayName": "vscode-plugin-demo",
+    "description": "VSCode插件demo",
+    "keywords": [
+        "vscode",
+        "plugin",
+        "demo"
+    ],
+    "version": "1.0.3",
+    "publisher": "sxei",
+    "engines": {
+        "vscode": "^1.27.0"
+    },
+    "categories": [
+        "Other"
+    ],
+    "icon": "images/icon.png",
+    "activationEvents": [
+        "*"
+    ],
+    "main": "./src/extension",
+    "contributes": {
+        "configuration": {
+            "type": "object",
+            "title": "Code插件demo",
+            "properties": {
+                "vscodePluginDemo.yourName": {
+                    "type": "string",
+                    "default": "guest",
+                    "description": "你的名字"
+                },
+                "vscodePluginDemo.showTip": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "启动时显示自定义欢迎页"
+                }
+            }
+        },
+        "commands": [
+            {
+                "command": "extension.sayHello",
+                "title": "Hello，小茗同学"
+            },
+            {
+                "command": "extension.demo.getCurrentFilePath",
+                "title": "获取当前文件(夹)路径"
+            },
+            {
+                "command": "extension.demo.testMenuShow",
+                "title": "这个菜单仅在JS文件中出现",
+                "icon": {
+                    "light": "./images/tool-light.svg",
+                    "dark": "./images/tool-light.svg"
+                }
+            },
+            {
+                "command": "extension.demo.openWebview",
+                "title": "打开WebView"
+            },
+            {
+                "command": "extension.demo.showWelcome",
+                "title": "显示自定义欢迎页"
+            }
+        ],
+        "keybindings": [
+            {
+                "command": "extension.sayHello",
+                "key": "ctrl+f10",
+                "mac": "cmd+f10",
+                "when": "editorTextFocus"
+            },
+            {
+                "command": "extension.demo.openWebview",
+                "key": "ctrl+f9",
+                "mac": "cmd+f9",
+                "when": "editorTextFocus"
+            }
+        ],
+        "menus": {
+            "editor/context": [
+                {
+                    "when": "editorFocus",
+                    "command": "extension.sayHello",
+                    "group": "navigation@6"
+                },
+                {
+                    "when": "editorFocus",
+                    "command": "extension.demo.getCurrentFilePath",
+                    "group": "navigation@5"
+                },
+                {
+                    "when": "editorFocus && resourceLangId == javascript",
+                    "command": "extension.demo.testMenuShow",
+                    "group": "z_commands"
+                },
+                {
+                    "command": "extension.demo.openWebview",
+                    "group": "navigation"
+                }
+            ],
+            "editor/title": [
+                {
+                    "when": "editorFocus && resourceLangId == javascript",
+                    "command": "extension.demo.testMenuShow",
+                    "group": "navigation"
+                }
+            ],
+            "editor/title/context": [
+                {
+                    "when": "resourceLangId == javascript",
+                    "command": "extension.demo.testMenuShow",
+                    "group": "navigation"
+                }
+            ],
+            "explorer/context": [
+                {
+                    "command": "extension.demo.getCurrentFilePath",
+                    "group": "navigation"
+                },
+                {
+                    "command": "extension.demo.openWebview",
+                    "group": "navigation"
+                }
+            ]
+        },
+        "snippets": [
+            {
+                "language": "javascript",
+                "path": "./snippets/javascript.json"
+            },
+            {
+                "language": "html",
+                "path": "./snippets/html.json"
+            }
+        ],
+        "viewsContainers": {
+            "activitybar": [
+                {
+                    "id": "beautifulGirl",
+                    "title": "美女",
+                    "icon": "images/beautifulGirl.svg"
+                }
+            ]
+        },
+        "views": {
+            "beautifulGirl": [
+                {
+                    "id": "beautifulGirl1",
+                    "name": "国内美女"
+                },
+                {
+                    "id": "beautifulGirl2",
+                    "name": "国外美女"
+                },
+                {
+                    "id": "beautifulGirl3",
+                    "name": "人妖"
+                }
+            ]
+        },
+        "iconThemes": [
+            {
+                "id": "testIconTheme",
+                "label": "测试图标主题",
+                "path": "./theme/icon-theme.json"
+            }
+        ]
+    },
+    "scripts": {
+        "postinstall": "node ./node_modules/vscode/bin/install",
+        "test": "node ./node_modules/vscode/bin/test"
+    },
+    "devDependencies": {
+        "typescript": "^2.6.1",
+        "vscode": "^1.1.6",
+        "eslint": "^4.11.0",
+        "@types/node": "^7.0.43",
+        "@types/mocha": "^2.2.42"
+    },
+    "license": "SEE LICENSE IN LICENSE.txt",
+    "bugs": {
+        "url": "https://github.com/sxei/vscode-plugin-demo/issues"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/sxei/vscode-plugin-demo"
+    },
+    "homepage": "https://github.com/sxei/vscode-plugin-demo/blob/master/README.md"
 }
